@@ -1,0 +1,35 @@
+<!-- myapp/templates/myapp/menu.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Bar Example</title>
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+    <script src="{% static 'myapp/scripts.js' %}" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">MyEvents</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Events</a></li>
+            <li class="dropdown">
+                <a href="#">Categories</a>
+                <div class="dropdown-content">
+                    <a href="#">Music</a>
+                    <a href="#">Art</a>
+                    <a href="#">Sports</a>
+                </div>
+            </li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,394 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'festive/styles.css' %}">
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        .settings-container {
+            display: flex;
+            margin-top: 40px;
+        }
+        .sidebar {
+            width: 250px;
+            background: #ffffff;
+            padding: 20px;
+            border-right: 1px solid #e0e0e0;
+            height: 100%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .sidebar h5 {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: #555;
+            text-decoration: none;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #e9ecef;
+            color: #007bff;
+        }
+        .settings-content {
+            flex-grow: 1;
+            padding: 20px 40px;
+        }
+        .card {
+            margin-bottom: 30px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px 8px 0 0;
+            padding: 15px;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            border-radius: 5px;
+            box-shadow: none;
+            border: 1px solid #ced4da;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, .5);
+        }
+        .btn-primary {
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+        .booking-details {
+            display: none; /* Initially hidden */
+        }
+        hr {
+            border-top: 1px solid #ddd;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid settings-container">
+    <div class="sidebar">
+        <h5>Settings</h5>
+        <a href="#" id="toggleDashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="#" id="toggleProfile"><i class="fas fa-user"></i> Profile</a>
+        <a href="#" id="toggleSecurity"><i class="fas fa-lock"></i> Security</a>
+        <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+        <a href="#"><i class="fas fa-credit-card"></i> Billing</a>
+        <a href="#" id="toggleBookings"><i class="fas fa-calendar-alt"></i> Bookings</a>
+        <hr>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="{% url 'signup' %}"><i class="fas fa-user-plus"></i> Signup</a>
+        {% endif %}
+    </div>
+    <div class="settings-content">
+        <!-- User Dashboard Section -->
+        <div class="card" id="dashboardSection" style="display: none;"> <!-- Initially hidden -->
+            <div class="card-header">
+                <h5>User Dashboard</h5>
+            </div>
+            <div class="card-body">
+                <h6>Hosted Events</h6>
+                <ul class="list-group mb-4">
+                    {% for event in hosted_events %}
+                    <li class="list-group-item">{{ event.name }} - {{ event.date }}</li>
+                    {% empty %}
+                    <li class="list-group-item">No hosted events found.</li>
+                    {% endfor %}
+                </ul>
+                <h6>Joined Events</h6>
+                <ul class="list-group">
+                    {% for event in joined_events %}
+                    <li class="list-group-item">{{ event.name }} - {{ event.date }}</li>
+                    {% empty %}
+                    <li class="list-group-item">No joined events found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Profile Section -->
+        <div class="card" id="profileSection" style="display: none;"> <!-- Initially hidden -->
+            <div class="card-header">
+                <h5>Profile Information</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="profile_picture">Profile Picture</label>
+                        <input type="file" class="form-control-file" id="profile_picture" name="profile_picture">
+                    </div>
+                    <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Security Section -->
+        <div class="card" id="securitySection" style="display: none;"> <!-- Initially hidden -->
+            <div class="card-header">
+                <h5>Change Password</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'change_password' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="current_password">Current Password</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password">New Password</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Booking Details Section -->
+        <div class="card booking-details" id="bookingDetails">
+            <div class="card-header">
+                <h5>Your Bookings</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Date</th>
+                            <th>Service</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.id }}</td>
+                            <td>{{ booking.date }}</td>
+                            <td>{{ booking.service }}</td>
+                            <td>{{ booking.status }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No bookings found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2025 partybuzz. All rights reserved.</p>
+</footer>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script>
+    document.getElementById('toggleDashboard').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        var dashboardSection = document.getElementById('dashboardSection');
+        var profileSection = document.getElementById('profileSection');
+        var securitySection = document.getElementById('securitySection');
+        var bookingDetails = document.getElementById('bookingDetails');
+         // Hide other sections
+         profileSection.style.display = "none";
+         bookingDetails.style.display = "none";
+         securitySection.style.display = "none";
+
+        //  Section.style.display = dashboardSection.style.display === "none" || dashboardSection.style.display === "" ? "block" : "none";
+        if (dashboardSection.style.display === 'none' || dashboardSection.style.display === '') {
+            dashboardSection.style.display = 'block'; // Show the dashboard section
+        } else {
+            dashboardSection.style.display = 'none'; // Hide the dashboard section
+        }
+
+    });
+    document.getElementById('toggleProfile').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        var profileSection = document.getElementById('profileSection');
+        var dashboardSection = document.getElementById('dashboardSection');
+        var securitySection = document.getElementById('securitySection');
+        var bookingDetails = document.getElementById('bookingDetails');
+
+        // Hide other sections
+        securitySection.style.display = "none";
+        bookingDetails.style.display = "none";
+        toggleDashboard.style.display = "none";
+
+        // Toggle profile section
+        profileSection.style.display = profileSection.style.display === "none" || profileSection.style.display === "" ? "block" : "none";
+    });
+
+    document.getElementById('toggleSecurity').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        var profileSection = document.getElementById('profileSection');
+        var dashboardSection = document.getElementById('dashboardSection');
+        var securitySection = document.getElementById('securitySection');
+        var bookingDetails = document.getElementById('bookingDetails');
+
+        // Hide other sections
+        profileSection.style.display = "none";
+        bookingDetails.style.display = "none";
+        toggleDashboard.style.display = "none";
+
+        // Toggle security section
+        securitySection.style.display = securitySection.style.display === "none" || securitySection.style.display === "" ? "block" : "none";
+    });
+
+    document.getElementById('toggleBookings').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        var profileSection = document.getElementById('profileSection');
+        var dashboardSection = document.getElementById('dashboardSection');
+        var securitySection = document.getElementById('securitySection');
+        var bookingDetails = document.getElementById('bookingDetails');
+
+        // Hide other sections
+        profileSection.style.display = "none";
+        securitySection.style.display = "none";
+        toggleDashboard.style.display = "none";
+
+        // Toggle booking details
+        bookingDetails.style.display = bookingDetails.style.display === "none" || bookingDetails.style.display === "" ? "block" : "none";
+    });
+</script>
+</body>
+</html><!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Event List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'festive/styles.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Settings</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Update Profile</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ profile_form.as_p }}
+                    <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Sign Up</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ signup_form.as_p }}
+                    <button type="submit" name="signup" class="btn btn-success">Sign Up</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Login</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <button type="submit" name="login" class="btn btn-info">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Logout</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="logout" class="btn btn-danger">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        {% if messages %}
+            <div class="alert alert-info" role="alert">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> -->

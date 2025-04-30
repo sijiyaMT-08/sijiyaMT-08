@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Event List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'festive/styles.css' %}">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #f0f4f8; /* Light background for a clean look */
+        }
+        h1 {
+            font-size: 3rem; /* Increased font size */
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff5733, #1100ff); /* Gradient color */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow for depth */
+            margin-bottom: 15px; /* Space below the heading */
+            animation: fadeIn 1s ease-in-out; /* Animation effect */
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .hero {
+            background: linear-gradient(135deg, #fffb00, #ffcc00); /* Gradient background for the hero section */
+            color: #2c3e50; /* Dark text for contrast */
+            padding: 80px 20px; /* More padding for a spacious feel */
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        .hero p {
+            font-size: 1.5rem; /* Increased font size */
+            margin-bottom: 0; /* Remove bottom margin */
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the footer */
+        }
+        .btn-center {
+            display: block; /* Make buttons block elements */
+            width: 100%; /* Full width */
+            margin: 10px 0; /* Space between buttons */
+            border-radius: 25px; /* Rounded corners */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #007bff, #0056b3); /* Gradient background */
+            border: none; /* Remove border */
+            color: white; /* White text */
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #0056b3, #004494); /* Darker gradient on hover */
+            transform: translateY(-2px); /* Lift effect */
+        }
+        .btn-secondary {
+            background: linear-gradient(45deg, #6c757d, #5a6268); /* Gradient background */
+            border: none; /* Remove border */
+            color: white; /* White text */
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #5a6268, #4e555b); /* Darker gradient on hover */
+            transform: translateY(-2px); /* Lift effect */
+        }
+        .btn-container {
+            max-width: 400px; /* Limit the width of the button container */
+            margin: 0 auto; /* Center the button container */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <a class="navbar-brand" href="{% url 'home' %}">Party Buzz</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'event_list' %}">View Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_event' %}">Add New Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'SETTINGS' %}">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="hero">
+            <h1>WELCOME TO PARTY BUZZ</h1>
+            <p>Explore upcoming events and add your own!</p>
+        </div>
+
+        <!-- Login and Signup Buttons -->
+        <div class="btn-container text-center mb-4">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-center" aria-label="Login to your account">Login</a>
+            <a href="{% url 'signup' %}" class="btn btn-secondary btn-center" aria-label="Create a new account">Sign Up</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Party Buzz. All rights reserved.</p>
+        <p>
+            <a href="#" class="text-muted">Privacy Policy</a> | 
+            <a href="#" class="text-muted">Terms of Service</a>
+        </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html><!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Event List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'festive/styles.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #9ac6f3;
+        }
+        h1 {
+            color: #12042d;
+            font-weight: bold;
+        }
+        .nav-link {
+            margin-right: 15px;
+        }
+        .hero {
+            background-color: #fffb00;
+            color: rgb(65, 7, 239);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <a class="navbar-brand" href="{% url 'home' %}">Party Buzz</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'event_list' %}">View Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_event' %}">Add New Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'SETTINGS' %}">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="hero">
+            <h1>WELCOME TO PARTY BUZZ</h1>
+            <p>Explore upcoming events and add your own!</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Party Buzz. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> -->
