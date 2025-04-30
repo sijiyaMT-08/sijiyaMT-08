@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: django\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-08 17:27+0200\n"
-"PO-Revision-Date: 2019-11-07 07:19+0000\n"
+"PO-Revision-Date: 2019-11-07 07:17+0000\n"
 "Last-Translator: NullIsNot0 <nullisnot0@inbox.lv>\n"
 "Language-Team: Latvian (http://www.transifex.com/django/django/language/"
 "lv/)\n"
@@ -20,26 +20,74 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
-msgid "Content Types"
-msgstr "Satura tipi"
+msgid "Advanced options"
+msgstr "Papildus opcijas"
 
-msgid "python model class name"
-msgstr "python modeļa klases nosaukums"
+msgid "Flat Pages"
+msgstr "Vienkāršās lapas"
 
-msgid "content type"
-msgstr "satura tips"
+msgid "URL"
+msgstr "URL"
 
-msgid "content types"
-msgstr "satura tipi"
+msgid ""
+"Example: “/about/contact/”. Make sure to have leading and trailing slashes."
+msgstr ""
+"Piemēram: “/about/contact/”. Pārliecinieties, ka esat ievietojuši sākuma un "
+"beigu slīpsvītras."
+
+msgid ""
+"This value must contain only letters, numbers, dots, underscores, dashes, "
+"slashes or tildes."
+msgstr ""
+"Šai vērtība ir jāsatur tikai burtus, ciparus, punktus, pasvītrojumi, "
+"domuzīmes, slīpsvītras vai tildes simboli."
+
+msgid "Example: “/about/contact”. Make sure to have a leading slash."
+msgstr ""
+"Piemēram: “/about/contact”. Pārliecinieties, ka esat ievietojuši sākuma "
+"slīpsvītru."
+
+msgid "URL is missing a leading slash."
+msgstr "URL trūkst sākuma slīpsvītra."
+
+msgid "URL is missing a trailing slash."
+msgstr "URL trūkst beigu slīpsvītra."
 
 #, python-format
-msgid "Content type %(ct_id)s object has no associated model"
-msgstr "Satura tipa %(ct_id)s objektam nav asociētā modeļa"
+msgid "Flatpage with url %(url)s already exists for site %(site)s"
+msgstr "Vienkāršā lapa ar url %(url)s jau eksistē vietnei %(site)s"
 
-#, python-format
-msgid "Content type %(ct_id)s object %(obj_id)s doesn’t exist"
-msgstr "Satura tipa %(ct_id)s objekts %(obj_id)s neeksistē"
+msgid "title"
+msgstr "virsraksts"
 
-#, python-format
-msgid "%(ct_name)s objects don’t have a get_absolute_url() method"
-msgstr "%(ct_name)s objekti nesatur get_absolute_url() metodi"
+msgid "content"
+msgstr "saturs"
+
+msgid "enable comments"
+msgstr "ieslēgt komentārus"
+
+msgid "template name"
+msgstr "šablona nosaukums"
+
+msgid ""
+"Example: “flatpages/contact_page.html”. If this isn’t provided, the system "
+"will use “flatpages/default.html”."
+msgstr ""
+"Piemēram: “flatpages/contact_page.html”. Ja tas nav norādīts, sistēma lietos "
+"“flatpages/default.html”."
+
+msgid "registration required"
+msgstr "reģistrācija obligāta"
+
+msgid "If this is checked, only logged-in users will be able to view the page."
+msgstr ""
+"Ja šis ir atzīmēts, tikai pieslēgušies lietotāji, varēs piekļūt šai lapu."
+
+msgid "sites"
+msgstr "vietnes"
+
+msgid "flat page"
+msgstr "vienkārša lapa"
+
+msgid "flat pages"
+msgstr "vienkāršas lapas"
